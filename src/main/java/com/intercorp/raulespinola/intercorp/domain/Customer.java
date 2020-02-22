@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 
-@Document (collation = "Customers")
+@Document (collection = "Customers")
 public class Customer {
 
     @Id
