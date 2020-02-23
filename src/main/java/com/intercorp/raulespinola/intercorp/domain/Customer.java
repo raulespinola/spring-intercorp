@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.UUID;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class Customer {
 
     @Id
-    private UUID id;
+    private String id;
     private String name;
     private String lastname;
     private int age;

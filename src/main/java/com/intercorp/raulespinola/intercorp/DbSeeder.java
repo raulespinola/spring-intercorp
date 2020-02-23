@@ -21,26 +21,25 @@ public class DbSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Customer customerA = new Customer(
-                UUID.randomUUID(),
-                "Raul",
-                "Espinola",
-                37,
-                LocalDate.of(1982, 10, 27)
-        );
 
-        Customer customerB = new Customer(
-                UUID.randomUUID(),
-                "Jorge",
-                "Espinola",
-                37,
-                LocalDate.of(1982, 10, 27)
-        );
-        //drop all customers
-        this.customerRepository.deleteAll();
+       Customer c1=  Customer.builder()
+                .birthdate(LocalDate.of(1982, 10, 27))
+                .name("Raul")
+                .lastname("Espinola")
+                .age(37)
+                .build();
 
-        //Add customers to DB
-        List<Customer> customers = Arrays.asList(customerA, customerB);
-        this.customerRepository.saveAll(customers);
+        Customer c2=  Customer.builder()
+                .birthdate(LocalDate.of(1982, 10, 27))
+                .name("Jorge")
+                .lastname("Espinola")
+                .age(37)
+                .build();
+
+        // Save all Customers
+        this.customerRepository.save(c1);
+        this.customerRepository.save(c2);
+
+        System.out.println("Customers Loaded " + customerRepository.count());
     }
 }
