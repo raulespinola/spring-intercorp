@@ -33,12 +33,28 @@ public class DbSeeder implements CommandLineRunner {
                 .birthdate(LocalDate.of(1982, 10, 27))
                 .name("Jorge")
                 .lastname("Espinola")
-                .age(37)
+                .age(25)
+                .build();
+
+        Customer c3=  Customer.builder()
+                .birthdate(LocalDate.of(1982, 10, 27))
+                .name("Jorge")
+                .lastname("Espinola")
+                .age(51)
+                .build();
+
+        Customer c4=  Customer.builder()
+                .birthdate(LocalDate.of(1982, 10, 27))
+                .name("Jorge")
+                .lastname("Espinola")
+                .age(18)
                 .build();
 
         // Save all Customers
         this.customerRepository.save(c1);
         this.customerRepository.save(c2);
+        this.customerRepository.save(c3);
+        this.customerRepository.save(c4);
 
         System.out.println("Customers Loaded " + customerRepository.count());
     }
