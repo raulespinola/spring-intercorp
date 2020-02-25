@@ -1,9 +1,10 @@
-package com.intercorp.raulespinola.intercorp.domain;
+package com.intercorp.raulespinola.intercorp.document;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Builder
 
 @Document (collection = "Customers")
-public class Customer {
+public class CustomerDto implements Serializable {
 
     @Id
     private String id;

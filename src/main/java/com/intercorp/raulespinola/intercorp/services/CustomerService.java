@@ -1,15 +1,23 @@
 package com.intercorp.raulespinola.intercorp.services;
 
-import com.intercorp.raulespinola.intercorp.domain.Customer;
+import com.intercorp.raulespinola.intercorp.document.CustomerDto;
 
-import java.util.UUID;
+import java.util.List;
+import java.util.Optional;
 
 public interface CustomerService {
-    Customer getCustomerById(String customerId);
 
-    Customer saveNewCustomer(Customer customer);
+    Optional<CustomerDto> getCustomerById(String customerId);
 
-    void updateCustomer(String customerId, Customer customer);
+    CustomerDto saveNewCustomer(CustomerDto customerDto);
+
+    void updateCustomer(CustomerDto customerDto);
 
     void deleteById(String customerId);
+
+    List<Double> getAverageAndDeviation();
+
+    List<CustomerDto> getAllClientsWithDeadDate();
+
+    List<CustomerDto> findAll();
 }
