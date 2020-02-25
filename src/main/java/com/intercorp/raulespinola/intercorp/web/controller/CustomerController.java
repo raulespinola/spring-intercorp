@@ -1,14 +1,12 @@
-package com.intercorp.raulespinola.intercorp.controller;
+package com.intercorp.raulespinola.intercorp.web.controller;
 
 import com.intercorp.raulespinola.intercorp.domain.Customer;
 import com.intercorp.raulespinola.intercorp.repositories.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/customers")
