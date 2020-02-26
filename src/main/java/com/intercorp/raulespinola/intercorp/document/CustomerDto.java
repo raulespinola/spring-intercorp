@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
@@ -20,8 +21,20 @@ public class CustomerDto implements Serializable {
 
     @Id
     private String id;
+
+    @NotNull
+    @NotBlank(message= "Name cannot be blank")
     private String name;
+
+
+    @NotNull
+    @NotBlank(message= "Lastname canoot be blank")
     private String lastname;
+
+    @Min(value=18, message="Customer cannot have less than 18")
+    @Max(value=90, message="Customer cannot have more than 90")
     private int age;
+
+    @Past
     private LocalDate birthdate;
 }
