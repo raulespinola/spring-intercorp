@@ -26,7 +26,6 @@ public class CustomerDto implements Serializable {
     @NotBlank(message= "Name cannot be blank")
     private String name;
 
-
     @NotNull
     @NotBlank(message= "Lastname canoot be blank")
     private String lastname;
