@@ -60,8 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .summaryStatistics()
                 .getAverage();
 
-        List <Double> out = Arrays.asList(average, variance, standardDeviation);
-        return out;
+        return Arrays.asList(average, variance, standardDeviation);
     }
 
     @Override
