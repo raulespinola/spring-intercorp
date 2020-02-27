@@ -1,6 +1,7 @@
 package com.intercorp.raulespinola.intercorp.web.controller;
 
 import com.intercorp.raulespinola.intercorp.document.CustomerDto;
+import com.intercorp.raulespinola.intercorp.exceptions.ResourceNotFoundException;
 import com.intercorp.raulespinola.intercorp.repositories.CustomerRepository;
 import com.intercorp.raulespinola.intercorp.services.CustomerService;
 import io.swagger.annotations.ApiOperation;
@@ -39,8 +40,8 @@ public class CustomerController {
     }
     @ApiOperation(value = "Get a customer by Id")
     @GetMapping({"/{customerId}"})
-    public ResponseEntity<Optional<CustomerDto>> getCustomer(
-            @ApiParam(value = "Customer id from which customer object will retrieve", required = true) @PathVariable(value = "id") String customerId) {
+    public ResponseEntity<CustomerDto> getCustomer(
+            @ApiParam(value = "Customer id from which customer object will retrieve", required = true) @PathVariable(value = "id") String customerId) throws ResourceNotFoundException {
         return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
     }
     @ApiOperation(value = "Add an employee")
@@ -61,7 +62,7 @@ public class CustomerController {
     @ApiOperation(value = "Delete a Customer")
     @DeleteMapping({"/{customerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBeer(@ApiParam(value = "Customer Id from which customer object will delete from database table",
+    public void deleteCustomer(@ApiParam(value = "Customer Id from which customer object will delete from database table",
             required = true) @PathVariable(value = "id") String customerId) {
         customerService.deleteById(customerId);
     }
@@ -76,7 +77,13 @@ public class CustomerController {
     @GetMapping("/kpidclientes")
     public List<Double> getAverageAndDeviation(){
         return this.customerService.getAverageAndDeviation();
-    }}
+    }
+
+    @GetMapping("/hello")
+    public String getHello() {
+        return customerService.getHello();
+    }
+}
 
 
 
