@@ -1,10 +1,12 @@
 package com.intercorp.raulespinola.intercorp.services;
 
 import com.intercorp.raulespinola.intercorp.document.CustomerDto;
+import com.intercorp.raulespinola.intercorp.exceptions.ResourceNotFoundException;
 import com.intercorp.raulespinola.intercorp.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +18,9 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public Optional<CustomerDto> getCustomerById(String customerId) {
-        return customerRepository.findById(customerId);
+    public CustomerDto getCustomerById(String customerId) throws ResourceNotFoundException {
+        return customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Is not found"));
     }
 
     @Override
@@ -71,5 +74,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<CustomerDto> findAll() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    public String getHello() {
+        return "Hello JUnit 5";
     }
 }
