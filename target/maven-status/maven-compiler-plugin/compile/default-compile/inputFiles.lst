@@ -1,6 +1,7 @@
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/repositories/CustomerRepository.java
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/SpringIntercorpApplication.java
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/document/CustomerDto.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/config/BootstrapDB.java
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/exceptions/GlobalExceptionHandler.java
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/services/CustomerService.java
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/web/controller/CustomerController.java

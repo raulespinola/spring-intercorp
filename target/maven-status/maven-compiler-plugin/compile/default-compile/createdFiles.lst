@@ -2,6 +2,7 @@ com/intercorp/raulespinola/intercorp/SpringIntercorpApplication.class
 com/intercorp/raulespinola/intercorp/exceptions/ErrorDetails.class
 com/intercorp/raulespinola/intercorp/document/CustomerDto.class
 com/intercorp/raulespinola/intercorp/exceptions/ErrorDetails$ErrorDetailsBuilder.class
+com/intercorp/raulespinola/intercorp/config/BootstrapDB.class
 com/intercorp/raulespinola/intercorp/web/controller/CustomerController.class
 com/intercorp/raulespinola/intercorp/exceptions/GlobalExceptionHandler.class
 com/intercorp/raulespinola/intercorp/config/SwaggerConfig.class
