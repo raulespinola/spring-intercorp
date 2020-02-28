@@ -1,26 +1,27 @@
 package com.intercorp.raulespinola.intercorp.services;
 
-import com.intercorp.raulespinola.intercorp.document.CustomerDto;
+import com.intercorp.raulespinola.intercorp.document.CustomerEntity;
 import com.intercorp.raulespinola.intercorp.exceptions.ResourceNotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 public interface CustomerService {
 
-    CustomerDto getCustomerById(String customerId) throws ResourceNotFoundException;
+    CustomerEntity getCustomerById(String customerId) throws ResourceNotFoundException;
 
-    CustomerDto saveNewCustomer(CustomerDto customerDto);
+    CustomerEntity saveNewCustomer(CustomerEntity customerEntity);
 
-    void updateCustomer(CustomerDto customerDto);
+    void updateCustomer(CustomerEntity customerEntity);
 
     void deleteById(String customerId);
 
     List<Double> getAverageAndDeviation();
 
-    List<CustomerDto> getAllClientsWithDeadDate();
+    Map<String, LocalDate> getAllClientsWithDeadDate();
 
-    List<CustomerDto> findAll();
+    List<CustomerEntity> findAll();
 
     String getHello();
 }

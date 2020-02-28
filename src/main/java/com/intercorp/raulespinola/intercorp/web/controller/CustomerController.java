@@ -1,8 +1,7 @@
 package com.intercorp.raulespinola.intercorp.web.controller;
 
-import com.intercorp.raulespinola.intercorp.document.CustomerDto;
+import com.intercorp.raulespinola.intercorp.document.CustomerEntity;
 import com.intercorp.raulespinola.intercorp.exceptions.ResourceNotFoundException;
-import com.intercorp.raulespinola.intercorp.repositories.CustomerRepository;
 import com.intercorp.raulespinola.intercorp.services.CustomerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/customers")
@@ -35,29 +34,29 @@ public class CustomerController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @GetMapping("/all")
-    public ResponseEntity<List<CustomerDto>> getAll(){
+    public ResponseEntity<List<CustomerEntity>> getAll(){
         return new ResponseEntity<>(customerService.findAll(), HttpStatus.OK);
     }
     @ApiOperation(value = "Get a customer by Id")
     @GetMapping({"/{customerId}"})
-    public ResponseEntity<CustomerDto> getCustomer(
+    public ResponseEntity<CustomerEntity> getCustomer(
             @ApiParam(value = "Customer id from which customer object will retrieve", required = true) @PathVariable(value = "id") String customerId) throws ResourceNotFoundException {
         return new ResponseEntity<>(customerService.getCustomerById(customerId), HttpStatus.OK);
     }
     @ApiOperation(value = "Add an employee")
     @PostMapping
-    public ResponseEntity handlePost(@Valid @NotNull @RequestBody CustomerDto customerDto) {
-        CustomerDto savedCustomerDto = customerService.saveNewCustomer(customerDto);
+    public ResponseEntity newCustomer(@Valid @NotNull @RequestBody CustomerEntity customerEntity) {
+        CustomerEntity savedCustomerEntity = customerService.saveNewCustomer(customerEntity);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Location", "/customer" + savedCustomerDto.getId());
+        httpHeaders.add("Location", "/customer" + savedCustomerEntity.getId());
         return new ResponseEntity(httpHeaders, HttpStatus.CREATED);
     }
     @ApiOperation(value = "Update an employee")
     @PutMapping({"/{customerId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void handleUpdate( @ApiParam(value = "Employee Id to update customer object", required = true) @PathVariable(value = "id") String customerId,
-                              @ApiParam(value = "Update customer object", required = true) @Valid @RequestBody CustomerDto customerDto) {
-        customerService.updateCustomer(customerDto);
+    public void updateCustomer( @ApiParam(value = "Employee Id to update customer object", required = true) @PathVariable(value = "id") String customerId,
+                              @ApiParam(value = "Update customer object", required = true) @Valid @RequestBody CustomerEntity customerEntity) {
+        customerService.updateCustomer(customerEntity);
     }
     @ApiOperation(value = "Delete a Customer")
     @DeleteMapping({"/{customerId}"})
@@ -69,7 +68,7 @@ public class CustomerController {
     // List all clients
     @ApiOperation(value = "List of all Clients with their Dead Dates")
     @GetMapping("/listclientes")
-    public List<CustomerDto> getAllClientsWithDeadDate(){
+    public Map<String, LocalDate> getAllClientsWithDeadDate(){
         return this.customerService.getAllClientsWithDeadDate();
     }
     // List Average and Standart Deviation

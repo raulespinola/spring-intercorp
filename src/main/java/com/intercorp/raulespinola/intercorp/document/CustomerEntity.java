@@ -6,8 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.UUID;
-import javax.persistence.*;
+import java.time.temporal.ChronoUnit;
 import javax.validation.constraints.*;
 
 @Getter
@@ -15,9 +14,8 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 @Document (collection = "Customers")
-public class CustomerDto implements Serializable {
+public class CustomerEntity implements Serializable {
 
     @Id
     private String id;
@@ -30,10 +28,13 @@ public class CustomerDto implements Serializable {
     @NotBlank(message= "Lastname canoot be blank")
     private String lastname;
 
-    @Min(value=18, message="Customer cannot have less than 18")
-    @Max(value=90, message="Customer cannot have more than 90")
-    private int age;
-
     @Past
     private LocalDate birthdate;
+
+    @Min(value=18, message="Age cannot be less than 18")
+    @Max(value=100, message="Age cannot be more than 100")
+    @NotNull
+    @NotBlank
+    private int age;
+
 }
