@@ -1,15 +1,14 @@
 package com.intercorp.raulespinola.intercorp.services;
 
-import com.intercorp.raulespinola.intercorp.document.CustomerDto;
+import com.intercorp.raulespinola.intercorp.document.CustomerEntity;
 import com.intercorp.raulespinola.intercorp.exceptions.ResourceNotFoundException;
 import com.intercorp.raulespinola.intercorp.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Null;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -18,20 +17,20 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public CustomerDto getCustomerById(String customerId) throws ResourceNotFoundException {
+    public CustomerEntity getCustomerById(String customerId) throws ResourceNotFoundException {
         return customerRepository.findById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Is not found"));
     }
 
     @Override
-    public CustomerDto saveNewCustomer(CustomerDto customerDto) {
-        customerRepository.save(customerDto);
-        return customerDto;
+    public CustomerEntity saveNewCustomer(CustomerEntity customerEntity) {
+        customerRepository.save(customerEntity);
+        return customerEntity;
     }
 
     @Override
-    public void updateCustomer(CustomerDto customerDto) {
-        customerRepository.save(customerDto);
+    public void updateCustomer(CustomerEntity customerEntity) {
+        customerRepository.save(customerEntity);
     }
 
     @Override
@@ -41,14 +40,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Double> getAverageAndDeviation() {
-        List<CustomerDto> customerDtoList = this.customerRepository.findAll();
+        List<CustomerEntity> customerEntityList = this.customerRepository.findAll();
 
-        double mean = customerDtoList.stream()
-                .mapToInt(CustomerDto::getAge)
+        double mean = customerEntityList.stream()
+                .mapToInt(CustomerEntity::getAge)
                 .average()
                 .getAsDouble();
 
-        double variance = customerDtoList.stream()
+        double variance = customerEntityList.stream()
                 .map(i -> {
                     return (i.getAge() - mean);
                 })
@@ -58,8 +57,8 @@ public class CustomerServiceImpl implements CustomerService {
         //Standard Deviation
         double standardDeviation = Math.sqrt(variance);
 
-        double average = customerDtoList.stream()
-                .mapToInt(CustomerDto::getAge)
+        double average = customerEntityList.stream()
+                .mapToInt(CustomerEntity::getAge)
                 .summaryStatistics()
                 .getAverage();
 
@@ -67,12 +66,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> getAllClientsWithDeadDate() {
-        return customerRepository.findAll();
+    public Map<String, LocalDate>  getAllClientsWithDeadDate() {
+
+        LocalDate today = LocalDate.now();
+        Random rand = new Random();
+        return customerRepository
+                .findAll()
+                .stream()
+                .collect(Collectors.toMap(CustomerEntity::toString, p -> p.getBirthdate().plusYears(p.getAge()).plusDays(rand.nextInt(3560))));
     }
 
     @Override
-    public List<CustomerDto> findAll() {
+    public List<CustomerEntity> findAll() {
         return customerRepository.findAll();
     }
 
