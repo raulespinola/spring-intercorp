@@ -8,7 +8,6 @@ com/intercorp/raulespinola/intercorp/exceptions/GlobalExceptionHandler.class
 com/intercorp/raulespinola/intercorp/config/SwaggerConfig.class
 com/intercorp/raulespinola/intercorp/services/CustomerServiceImpl.class
 com/intercorp/raulespinola/intercorp/document/CustomerDto$CustomerDtoBuilder.class
-com/intercorp/raulespinola/intercorp/config/SpringMongoConfiguration.class
 com/intercorp/raulespinola/intercorp/services/CustomerService.class
 com/intercorp/raulespinola/intercorp/repositories/CustomerRepository.class
 com/intercorp/raulespinola/intercorp/exceptions/ResourceNotFoundException.class

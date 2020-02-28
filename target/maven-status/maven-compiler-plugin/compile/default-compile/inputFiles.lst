@@ -7,6 +7,5 @@
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/web/controller/CustomerController.java
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/exceptions/ErrorDetails.java
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/config/SwaggerConfig.java
-/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/config/SpringMongoConfiguration.java
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/exceptions/ResourceNotFoundException.java
 /home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/services/CustomerServiceImpl.java
