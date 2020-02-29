@@ -19,13 +19,9 @@ class CustomerControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Test
-    void testGet() {
-        assertEquals("Hello JUnit 5", customerService.getHello());
-    }
+
     @Test
     public void getCustomerTest() throws Exception {
-
         assertTrue(true);
         /*
         LocalDate inputDate = LocalDate.of(1982,1,10);
@@ -49,35 +45,6 @@ class CustomerControllerTest {
          */
     }
 
-    @Test
-    void getAll() {
-        assertTrue(true);
-
-    }
-
-    @Test
-    void getCustomer() {
-        assertTrue(true);
-
-    }
-
-    @Test
-    void handlePost() {
-        assertTrue(true);
-
-    }
-
-    @Test
-    void handleUpdate() {
-        assertTrue(true);
-
-    }
-
-    @Test
-    void deleteCustomer() {
-        assertTrue(true);
-
-    }
 
     @Test
     void getAllClientsWithDeadDate() {
