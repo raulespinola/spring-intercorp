@@ -9,12 +9,13 @@ import java.time.LocalDate;
 public class CustomerDeadResponse  extends Customer{
     private LocalDate deadDate;
 
-    public CustomerDeadResponse (CustomerDto c, LocalDate deadDate)
+    @Builder
+    public CustomerDeadResponse (String name, String lastName, int age, LocalDate birthDate, LocalDate deadDate)
     {
-        this.name = c.getName();
-        this.age = c.getAge();
-        this.lastname = c.getLastname();
-        this.birthdate= c.getBirthdate();
-        this.setDeadDate(deadDate);
+        this.name = name;
+        this.age = age;
+        this.lastname = lastName;
+        this.birthdate= birthDate;
+        this.deadDate = deadDate;
     }
 }

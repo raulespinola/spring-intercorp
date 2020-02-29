@@ -69,7 +69,9 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository
                 .findAll()
                 .stream()
-                .map(p -> new CustomerDeadResponse(p, today.plusDays(rand.nextInt(3650))))
+                .map(p -> new CustomerDeadResponse(p.getName(),
+                        p.getLastname(),p.getAge(),p.getBirthdate(),
+                        today.plusDays(rand.nextInt(3650))))
                 .collect(Collectors.toList());
     }
 
