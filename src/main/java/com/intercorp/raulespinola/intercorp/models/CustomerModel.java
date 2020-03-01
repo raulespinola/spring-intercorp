@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public abstract class Customer {
+public abstract class CustomerModel {
     @NotNull
     @NotBlank(message= "Name cannot be blank")
     protected String name;
@@ -23,6 +23,5 @@ public abstract class Customer {
     @Min(value=18, message="Age cannot be less than 18")
     @Max(value=100, message="Age cannot be more than 100")
     @NotNull
-    @NotBlank
     protected int age;
 }

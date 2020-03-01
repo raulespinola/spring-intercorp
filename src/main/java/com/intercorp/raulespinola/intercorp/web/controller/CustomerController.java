@@ -1,6 +1,6 @@
 package com.intercorp.raulespinola.intercorp.web.controller;
 
-import com.intercorp.raulespinola.intercorp.models.CustomerDeadResponse;
+import com.intercorp.raulespinola.intercorp.models.CustomerDeadDateResponse;
 import com.intercorp.raulespinola.intercorp.models.CustomerDto;
 import com.intercorp.raulespinola.intercorp.models.StadisticalResponse;
 import com.intercorp.raulespinola.intercorp.services.CustomerService;
@@ -47,16 +47,17 @@ public class CustomerController {
 
     @ApiOperation(value = "Average Age and Standart Deviation Age")
     @GetMapping("/kpidclientes")
-    public StadisticalResponse getAverageAndDeviation(){
-        return this.customerService.getAverageAndDeviation();
+    public ResponseEntity <StadisticalResponse> getAverageAndDeviation(){
+        return new ResponseEntity<StadisticalResponse>(customerService
+                .getAverageAndDeviation(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "List of all Clients with their Dead Dates")
     @GetMapping("/listclientes")
-    public List<CustomerDeadResponse> getAllClientsWithDeadDate(){
-        return this.customerService.getAllClientsWithDeadDate();
+    public ResponseEntity<List<CustomerDeadDateResponse>> getAllClientsWithDeadDate(){
+        return new ResponseEntity<List<CustomerDeadDateResponse>>(customerService
+                .getAllClientsWithDeadDate(),HttpStatus.OK);
     }
-
 }
 
 

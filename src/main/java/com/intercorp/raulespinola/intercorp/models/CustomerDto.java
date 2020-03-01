@@ -6,15 +6,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.validation.constraints.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Document (collection = "Customers")
-public class CustomerDto extends Customer implements Serializable {
+public class CustomerDto extends CustomerModel implements Serializable {
     @Id
     private String id;
+
+    @Builder
+    public CustomerDto(String id, String name, String lastName, int age, LocalDate birthDate)
+    {
+        this.id=id;
+        this.name = name;
+        this.age = age;
+        this.lastname = lastName;
+        this.birthdate= birthDate;
+    }
 }

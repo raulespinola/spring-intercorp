@@ -1,6 +1,6 @@
 package com.intercorp.raulespinola.intercorp.services;
 
-import com.intercorp.raulespinola.intercorp.models.CustomerDeadResponse;
+import com.intercorp.raulespinola.intercorp.models.CustomerDeadDateResponse;
 import com.intercorp.raulespinola.intercorp.models.CustomerDto;
 import com.intercorp.raulespinola.intercorp.models.StadisticalResponse;
 import com.intercorp.raulespinola.intercorp.repositories.CustomerRepository;
@@ -30,46 +30,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public StadisticalResponse getAverageAndDeviation() {
-        List<CustomerDto> customerDtoList = this.customerRepository.findAll();
-
-        double mean = customerDtoList.stream()
-                .mapToInt(CustomerDto::getAge)
-                .average()
-                .orElse(0.0);
-
-        double variance = customerDtoList.stream()
-                .map(i -> {
-                    return (i.getAge() - mean);
-                })
-                .map(i -> i*i)
-                .mapToDouble(i -> i)
-                .average()
-                .orElse(0.0);
-
-        //Standard Deviation
-        double standardDeviation = Math.sqrt(variance);
-
-        double average = customerDtoList.stream()
-                .mapToInt(CustomerDto::getAge)
-                .summaryStatistics()
-                .getAverage();
-
-        return StadisticalResponse.builder()
-                .average(average)
-                .variance(variance)
-                .standardDeviation(standardDeviation)
-                .build();
+        return new StadisticalResponse(customerRepository.findAll());
     }
 
     @Override
-    public List<CustomerDeadResponse>  getAllClientsWithDeadDate() {
+    public List<CustomerDeadDateResponse>  getAllClientsWithDeadDate() {
         LocalDate today = LocalDate.now();
         Random rand = new Random();
 
         return customerRepository
                 .findAll()
                 .stream()
-                .map(p -> new CustomerDeadResponse(p, today.plusDays(rand.nextInt(3650))))
+                .map(p -> new CustomerDeadDateResponse(p.getName(),
+                        p.getLastname(),p.getAge(),p.getBirthdate(),
+                        today.plusDays(rand.nextInt(3650))))
                 .collect(Collectors.toList());
     }
 
