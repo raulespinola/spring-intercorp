@@ -1,6 +1,6 @@
 package com.intercorp.raulespinola.intercorp.services;
 
-import com.intercorp.raulespinola.intercorp.models.CustomerDeadResponse;
+import com.intercorp.raulespinola.intercorp.models.CustomerDeadDateResponse;
 import com.intercorp.raulespinola.intercorp.models.CustomerDto;
 import com.intercorp.raulespinola.intercorp.models.StadisticalResponse;
 
@@ -12,7 +12,7 @@ public interface CustomerService {
 
     StadisticalResponse getAverageAndDeviation();
 
-    List<CustomerDeadResponse> getAllClientsWithDeadDate();
+    List<CustomerDeadDateResponse> getAllClientsWithDeadDate();
 
     List<CustomerDto> getAllCustomers();
 }

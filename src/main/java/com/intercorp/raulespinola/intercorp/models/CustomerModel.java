@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public abstract class Customer {
+public abstract class CustomerModel {
     @NotNull
     @NotBlank(message= "Name cannot be blank")
     protected String name;
