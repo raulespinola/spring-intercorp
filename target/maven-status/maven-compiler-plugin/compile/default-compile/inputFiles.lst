@@ -1,0 +1,13 @@
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/models/CustomerDto.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/repositories/CustomerRepository.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/SpringIntercorpApplication.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/models/CustomerModel.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/services/CustomerService.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/models/StadisticalResponse.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/exceptions/ErrorDetails.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/exceptions/ResourceNotFoundException.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/services/CustomerServiceImpl.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/exceptions/GlobalExceptionHandler.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/web/controller/CustomerController.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/models/CustomerDeadDateResponse.java
+/home/raul/Desktop/Repositories/spring-intercopr/src/main/java/com/intercorp/raulespinola/intercorp/config/SwaggerConfig.java

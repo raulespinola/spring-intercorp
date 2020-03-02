@@ -1,0 +1,17 @@
+com/intercorp/raulespinola/intercorp/models/CustomerModel.class
+com/intercorp/raulespinola/intercorp/SpringIntercorpApplication.class
+com/intercorp/raulespinola/intercorp/exceptions/ErrorDetails.class
+com/intercorp/raulespinola/intercorp/exceptions/ErrorDetails$ErrorDetailsBuilder.class
+com/intercorp/raulespinola/intercorp/web/controller/CustomerController.class
+com/intercorp/raulespinola/intercorp/models/CustomerDto.class
+com/intercorp/raulespinola/intercorp/exceptions/GlobalExceptionHandler.class
+com/intercorp/raulespinola/intercorp/models/StadisticalResponse.class
+com/intercorp/raulespinola/intercorp/models/CustomerDeadDateResponse$CustomerDeadDateResponseBuilder.class
+com/intercorp/raulespinola/intercorp/config/SwaggerConfig.class
+com/intercorp/raulespinola/intercorp/services/CustomerServiceImpl.class
+com/intercorp/raulespinola/intercorp/models/CustomerDto$CustomerDtoBuilder.class
+com/intercorp/raulespinola/intercorp/models/CustomerDeadDateResponse.class
+com/intercorp/raulespinola/intercorp/services/CustomerService.class
+com/intercorp/raulespinola/intercorp/repositories/CustomerRepository.class
+com/intercorp/raulespinola/intercorp/models/StadisticalResponse$StadisticalResponseBuilder.class
+com/intercorp/raulespinola/intercorp/exceptions/ResourceNotFoundException.class

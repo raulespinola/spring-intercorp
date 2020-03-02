@@ -54,8 +54,8 @@ public class CustomerControllerTest {
     List<CustomerDto> customerList;
 
     @Before
-    public void setUp(){
-        LocalDate inputDate = LocalDate.of(1982,1,10);
+    public void setUp() {
+        LocalDate inputDate = LocalDate.of(1982, 1, 10);
         validCustomerA = CustomerDto.builder()
                 .id("abcd")
                 .name("Vane")
@@ -104,12 +104,12 @@ public class CustomerControllerTest {
         try {
             customerDtoJson = objectMapper.writeValueAsString(customerDto);
         } catch (JsonProcessingException e) {
-            logger.error("Problem with Json Parse",e);
+            logger.error("Problem with Json Parse", e);
         }
         try {
             given(customerService.saveNewCustomer(any())).willReturn(savedDto);
         } catch (ResourceNotFoundException e) {
-            if(logger.isDebugEnabled()) logger.error("Customer not found" ,e);
+            if (logger.isDebugEnabled()) logger.error("Customer not found", e);
         }
         try {
             assert customerDtoJson != null;
@@ -124,7 +124,7 @@ public class CustomerControllerTest {
 
 
     @Test
-    public void GetAverageAndDeviationTest(){
+    public void GetAverageAndDeviationTest() {
         int[] ageList = customerList.stream()
                 .mapToInt(CustomerDto::getAge)
                 .toArray();
@@ -135,7 +135,7 @@ public class CustomerControllerTest {
         try {
             stadisticalDtoJson = objectMapper.writeValueAsString(stadisticalMock);
         } catch (JsonProcessingException e) {
-            logger.error("Problem with Json Parse",e);
+            logger.error("Problem with Json Parse", e);
         }
 
         try {
@@ -158,14 +158,14 @@ public class CustomerControllerTest {
                         validCustomerA.getBirthdate(),
                         LocalDate.now());
 
-        List<CustomerDeadDateResponse> customerDeadDateResponseListMock =  Arrays.asList(customerDeadDateResponse);
+        List<CustomerDeadDateResponse> customerDeadDateResponseListMock = Arrays.asList(customerDeadDateResponse);
 
         given(customerService.getAllClientsWithDeadDate()).willReturn(customerDeadDateResponseListMock);
         String customerDeadListDtoJson = null;
         try {
             customerDeadListDtoJson = objectMapper.writeValueAsString(customerDeadDateResponse);
         } catch (JsonProcessingException e) {
-            logger.error("Problem with Json Parse",e);
+            logger.error("Problem with Json Parse", e);
         }
 
         try {
