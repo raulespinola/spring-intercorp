@@ -1,5 +1,6 @@
 package com.intercorp.raulespinola.intercorp.services;
 
+import com.intercorp.raulespinola.intercorp.exceptions.ResourceNotFoundException;
 import com.intercorp.raulespinola.intercorp.models.CustomerDeadDateResponse;
 import com.intercorp.raulespinola.intercorp.models.CustomerDto;
 import com.intercorp.raulespinola.intercorp.models.StadisticalResponse;
@@ -23,10 +24,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto saveNewCustomer(CustomerDto customerDto) {
+    public CustomerDto saveNewCustomer(CustomerDto customerDto) throws ResourceNotFoundException {
         customerRepository.save(customerDto);
-        return customerDto;
-    }
+
+        Optional<CustomerDto> customerDtoOptional = customerRepository
+                .findById(customerDto.getId());
+
+        return customerDtoOptional.orElseThrow(() ->
+                new ResourceNotFoundException("Customer was not save, customer: " + customerDto.getName()+ customerDto.getLastname()));
+        }
 
     @Override
     public StadisticalResponse getAverageAndDeviation() {
@@ -35,8 +41,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDeadDateResponse>  getAllClientsWithDeadDate() {
-        LocalDate today = LocalDate.now();
-        Random rand = new Random();
+        final LocalDate today = LocalDate.now();
+        final Random rand = new Random();
 
         return customerRepository
                 .findAll()
@@ -46,5 +52,4 @@ public class CustomerServiceImpl implements CustomerService {
                         today.plusDays(rand.nextInt(3650))))
                 .collect(Collectors.toList());
     }
-
 }

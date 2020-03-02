@@ -2,11 +2,13 @@ package com.intercorp.raulespinola.intercorp.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intercorp.raulespinola.intercorp.exceptions.ResourceNotFoundException;
 import com.intercorp.raulespinola.intercorp.models.CustomerDeadDateResponse;
 import com.intercorp.raulespinola.intercorp.models.CustomerDto;
 import com.intercorp.raulespinola.intercorp.models.StadisticalResponse;
 import com.intercorp.raulespinola.intercorp.services.CustomerService;
 
+import lombok.extern.log4j.Log4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,11 +31,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.apache.log4j.Logger;
+
 import static org.mockito.BDDMockito.given;
 
+@Log4j
 @RunWith(SpringRunner.class)
 @WebMvcTest(CustomerController.class)
-public class CustomerModelControllerTest {
+public class CustomerControllerTest {
+
+    final static Logger logger = Logger.getLogger(CustomerControllerTest.class);
 
     @MockBean
     CustomerService customerService;
@@ -43,10 +50,8 @@ public class CustomerModelControllerTest {
 
     @Autowired
     ObjectMapper objectMapper;
-
     CustomerDto validCustomerA;
     List<CustomerDto> customerList;
-
 
     @Before
     public void setUp(){
@@ -71,17 +76,21 @@ public class CustomerModelControllerTest {
     }
 
     @Test
-    public void getAllCustomersTest() throws Exception {
+    public void getAllCustomersTest() {
         given(customerService.getAllCustomers()).willReturn(customerList);
 
-        mockMvc.perform(get("/customers/todos").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[0].id", is(customerList.get(0).getId())));
+        try {
+            mockMvc.perform(get("/customers/todos").accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.[0].id", is(customerList.get(0).getId())));
+        } catch (Exception e) {
+            logger.error("Something is wrong with thee mockMvc object!", e);
+        }
     }
 
     @Test
-    public void newCustomerTest() throws Exception {
+    public void newCustomerTest() {
         CustomerDto customerDto = customerList.get(0);
         customerDto.setId(null);
         CustomerDto savedDto = CustomerDto.builder()
@@ -91,33 +100,56 @@ public class CustomerModelControllerTest {
                 .age(50)
                 .build();
 
-        String customerDtoJson = objectMapper.writeValueAsString(customerDto);
-        given(customerService.saveNewCustomer(any())).willReturn(savedDto);
-        mockMvc.perform(post("/customers/creacliente")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(customerDtoJson))
-                .andExpect(status().isCreated());
+        String customerDtoJson = null;
+        try {
+            customerDtoJson = objectMapper.writeValueAsString(customerDto);
+        } catch (JsonProcessingException e) {
+            logger.error("Problem with Json Parse",e);
+        }
+        try {
+            given(customerService.saveNewCustomer(any())).willReturn(savedDto);
+        } catch (ResourceNotFoundException e) {
+            if(logger.isDebugEnabled()) logger.error("Customer not found" ,e);
+        }
+        try {
+            assert customerDtoJson != null;
+            mockMvc.perform(post("/customers/creacliente")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(customerDtoJson))
+                    .andExpect(status().isCreated());
+        } catch (Exception e) {
+            logger.error("Error with the mock object", e);
+        }
     }
 
 
     @Test
-    public void GetAverageAndDeviationTest() throws Exception {
+    public void GetAverageAndDeviationTest(){
         int[] ageList = customerList.stream()
                 .mapToInt(CustomerDto::getAge)
                 .toArray();
         StadisticalResponse stadisticalMock = new StadisticalResponse(ageList);
 
         given(customerService.getAverageAndDeviation()).willReturn(stadisticalMock);
-        String staditicalDtoJson = objectMapper.writeValueAsString(stadisticalMock);
+        String stadisticalDtoJson = null;
+        try {
+            stadisticalDtoJson = objectMapper.writeValueAsString(stadisticalMock);
+        } catch (JsonProcessingException e) {
+            logger.error("Problem with Json Parse",e);
+        }
 
-        mockMvc.perform(get("/customers//kpidclientes")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(staditicalDtoJson))
-                .andExpect(status().isOk());
+        try {
+            mockMvc.perform(get("/customers//kpidclientes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(stadisticalDtoJson))
+                    .andExpect(status().isOk());
+        } catch (Exception e) {
+            logger.error("Error with the mock object", e);
+        }
     }
 
     @Test
-    public void testGetAllClientsWithDeadDate() throws Exception {
+    public void testGetAllClientsWithDeadDate() {
 
         CustomerDeadDateResponse customerDeadDateResponse =
                 new CustomerDeadDateResponse(validCustomerA.getName(),
@@ -129,12 +161,21 @@ public class CustomerModelControllerTest {
         List<CustomerDeadDateResponse> customerDeadDateResponseListMock =  Arrays.asList(customerDeadDateResponse);
 
         given(customerService.getAllClientsWithDeadDate()).willReturn(customerDeadDateResponseListMock);
-        String customerDeadListDtoJson = objectMapper.writeValueAsString(customerDeadDateResponse);
+        String customerDeadListDtoJson = null;
+        try {
+            customerDeadListDtoJson = objectMapper.writeValueAsString(customerDeadDateResponse);
+        } catch (JsonProcessingException e) {
+            logger.error("Problem with Json Parse",e);
+        }
 
-        mockMvc.perform(get("/customers//listclientes")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(customerDeadListDtoJson))
-                .andExpect(status().isOk());
+        try {
+            mockMvc.perform(get("/customers//listclientes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(customerDeadListDtoJson))
+                    .andExpect(status().isOk());
+        } catch (Exception e) {
+            logger.error("Error with the mock object", e);
+        }
 
     }
 }

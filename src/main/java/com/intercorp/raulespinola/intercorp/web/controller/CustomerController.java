@@ -1,5 +1,6 @@
 package com.intercorp.raulespinola.intercorp.web.controller;
 
+import com.intercorp.raulespinola.intercorp.exceptions.ResourceNotFoundException;
 import com.intercorp.raulespinola.intercorp.models.CustomerDeadDateResponse;
 import com.intercorp.raulespinola.intercorp.models.CustomerDto;
 import com.intercorp.raulespinola.intercorp.models.StadisticalResponse;
@@ -7,6 +8,7 @@ import com.intercorp.raulespinola.intercorp.services.CustomerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
+
+    final static Logger logger = Logger.getLogger(CustomerController.class);
 
     @Autowired
     private CustomerService customerService;
@@ -39,8 +43,13 @@ public class CustomerController {
     @ApiOperation(value = "Add an employee")
     @PostMapping("/creacliente")
     public ResponseEntity newCustomer(@Valid @NotNull @RequestBody CustomerDto customerDto) {
-        CustomerDto savedCustomerDto = customerService.saveNewCustomer(customerDto);
-        HttpHeaders httpHeaders = new HttpHeaders();
+        CustomerDto savedCustomerDto = null;
+        try {
+            savedCustomerDto = customerService.saveNewCustomer(customerDto);
+        } catch (ResourceNotFoundException e) {
+            if (logger.isDebugEnabled()) logger.error("Customer Not Found", e);
+        }
+        final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Location", "/customer" + savedCustomerDto.getId());
         return new ResponseEntity(httpHeaders, HttpStatus.CREATED);
     }

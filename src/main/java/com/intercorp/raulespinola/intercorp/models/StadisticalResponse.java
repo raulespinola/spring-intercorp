@@ -16,7 +16,7 @@ public class StadisticalResponse {
     private double variance;
     private double standardDeviation;
 
-    public double calculateAverage(int[] data){
+    private double calculateAverage(int[] data){
         // The mean average
         double mean = 0.0;
         for (int i = 0; i < data.length; i++) {
@@ -26,14 +26,14 @@ public class StadisticalResponse {
         return mean;
     }
 
-    public double calculateAverage(List<CustomerDto> customerDtoList){
+    private double calculateAverage(List<CustomerDto> customerDtoList){
         return customerDtoList.stream()
                 .mapToInt(CustomerDto::getAge)
                 .average()
                 .orElse(0.0);
     }
 
-    public double calculateVariance(List<CustomerDto> customerDtoList, double average){
+    private double calculateVariance(List<CustomerDto> customerDtoList, double average){
         return customerDtoList.stream()
                 .map(i -> {
                     return (i.getAge() - average);
@@ -44,7 +44,7 @@ public class StadisticalResponse {
                 .orElse(0.0);
     }
 
-    public double calculateVariance(int[] data, double mean)
+    private double calculateVariance(int[] data, double mean)
     {
         // The variance
         double variance = 0;
