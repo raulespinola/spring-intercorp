@@ -24,9 +24,8 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo("Rest API", "Rest API Customer", "1", "",
+        return new ApiInfo("Rest API", "Rest API Customer", "1", "",
                 new Contact("Raul Espinola", "www.raulespinola.wordpress.com", "raulespinola@gmail.com"),
                 "Apache License", "");
-        return apiInfo;
     }
 }
