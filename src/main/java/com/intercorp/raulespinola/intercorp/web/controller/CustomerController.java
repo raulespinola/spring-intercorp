@@ -36,7 +36,7 @@ public class CustomerController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
     @GetMapping("/todos")
-    public ResponseEntity<List<CustomerDto>> getAllCustomers(){
+    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
         return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
     }
 
@@ -56,16 +56,16 @@ public class CustomerController {
 
     @ApiOperation(value = "Average Age and Standart Deviation Age")
     @GetMapping("/kpidclientes")
-    public ResponseEntity <StadisticalResponse> getAverageAndDeviation(){
+    public ResponseEntity<StadisticalResponse> getAverageAndDeviation() {
         return new ResponseEntity<StadisticalResponse>(customerService
                 .getAverageAndDeviation(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "List of all Clients with their Dead Dates")
     @GetMapping("/listclientes")
-    public ResponseEntity<List<CustomerDeadDateResponse>> getAllClientsWithDeadDate(){
+    public ResponseEntity<List<CustomerDeadDateResponse>> getAllClientsWithDeadDate() {
         return new ResponseEntity<List<CustomerDeadDateResponse>>(customerService
-                .getAllClientsWithDeadDate(),HttpStatus.OK);
+                .getAllClientsWithDeadDate(), HttpStatus.OK);
     }
 }
 

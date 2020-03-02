@@ -16,7 +16,7 @@ public class StadisticalResponse {
     private double variance;
     private double standardDeviation;
 
-    private double calculateAverage(int[] data){
+    private double calculateAverage(int[] data) {
         // The mean average
         double mean = 0.0;
         for (int i = 0; i < data.length; i++) {
@@ -26,26 +26,25 @@ public class StadisticalResponse {
         return mean;
     }
 
-    private double calculateAverage(List<CustomerDto> customerDtoList){
+    private double calculateAverage(List<CustomerDto> customerDtoList) {
         return customerDtoList.stream()
                 .mapToInt(CustomerDto::getAge)
                 .average()
                 .orElse(0.0);
     }
 
-    private double calculateVariance(List<CustomerDto> customerDtoList, double average){
+    private double calculateVariance(List<CustomerDto> customerDtoList, double average) {
         return customerDtoList.stream()
                 .map(i -> {
                     return (i.getAge() - average);
                 })
-                .map(i -> i*i)
+                .map(i -> i * i)
                 .mapToDouble(i -> i)
                 .average()
                 .orElse(0.0);
     }
 
-    private double calculateVariance(int[] data, double mean)
-    {
+    private double calculateVariance(int[] data, double mean) {
         // The variance
         double variance = 0;
         for (int i = 0; i < data.length; i++) {
@@ -55,17 +54,17 @@ public class StadisticalResponse {
         return variance;
     }
 
-    public double calculateStandardDeviation (double variance) {
-         return Math.sqrt(variance);
+    public double calculateStandardDeviation(double variance) {
+        return Math.sqrt(variance);
     }
 
-    public StadisticalResponse (int[] data){
+    public StadisticalResponse(int[] data) {
         this.average = calculateAverage(data);
-        this.variance= calculateVariance(data, this.average);
+        this.variance = calculateVariance(data, this.average);
         this.standardDeviation = calculateStandardDeviation(variance);
     }
 
-    public StadisticalResponse (List<CustomerDto> customerDtoList){
+    public StadisticalResponse(List<CustomerDto> customerDtoList) {
         this.average = calculateAverage(customerDtoList);
         this.variance = calculateVariance(customerDtoList, this.average);
         this.standardDeviation = calculateStandardDeviation(variance);

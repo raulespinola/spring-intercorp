@@ -17,6 +17,7 @@ public class GlobalExceptionHandler {
         final ErrorDetails errorDetails = new ErrorDetails(LocalDate.now(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> globleExceptionHandler(Exception ex, WebRequest request) {
         final ErrorDetails errorDetails = new ErrorDetails(LocalDate.now(), ex.getMessage(), request.getDescription(false));

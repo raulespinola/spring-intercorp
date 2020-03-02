@@ -19,7 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public List<CustomerDto> getAllCustomers(){
+    public List<CustomerDto> getAllCustomers() {
         return customerRepository.findAll();
     }
 
@@ -31,8 +31,8 @@ public class CustomerServiceImpl implements CustomerService {
                 .findById(customerDto.getId());
 
         return customerDtoOptional.orElseThrow(() ->
-                new ResourceNotFoundException("Customer was not save, customer: " + customerDto.getName()+ customerDto.getLastname()));
-        }
+                new ResourceNotFoundException("Customer was not save, customer: " + customerDto.getName() + customerDto.getLastname()));
+    }
 
     @Override
     public StadisticalResponse getAverageAndDeviation() {
@@ -40,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDeadDateResponse>  getAllClientsWithDeadDate() {
+    public List<CustomerDeadDateResponse> getAllClientsWithDeadDate() {
         final LocalDate today = LocalDate.now();
         final Random rand = new Random();
 
@@ -48,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .findAll()
                 .stream()
                 .map(p -> new CustomerDeadDateResponse(p.getName(),
-                        p.getLastname(),p.getAge(),p.getBirthdate(),
+                        p.getLastname(), p.getAge(), p.getBirthdate(),
                         today.plusDays(rand.nextInt(3650))))
                 .collect(Collectors.toList());
     }
